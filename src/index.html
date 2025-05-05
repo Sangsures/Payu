@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+
+<body>
+  <h1 id="header"></h1>
+  <div
+    class="Header-bottom2eLKOFXMEmh5 rm-Header-bottom rm-Header-bottom_withOwlbot Header-bottom_withOwlbot3wuKp8NLXCqs __web-inspector-hide-shortcut__">
+    <div class="rm-Container rm-Container_flex">
+      <nav class="Header-leftADQdGVqx1wqU">
+        <span
+            class="undefined NavItem_inactive1YE6SGanIJp5 rm-Header-bottom-link"
+            >v<!-- -->1</span><a aria-current="page"
+          class="Button Button_md rm-Header-link rm-Header-bottom-link Button_slate_text Header-bottom-link_mobile active"
+          href="/" target="_self"><i class="icon-landing-page-2"></i><span>Home</span></a><a
+          class="Button Button_md rm-Header-link rm-Header-bottom-link Button_slate_text Header-bottom-link_mobile"
+          href="/docs" target="_self"><i class="icon-guides"></i><span>Integration Guide</span></a><a
+          class="Button Button_md rm-Header-link rm-Header-bottom-link Button_slate_text Header-bottom-link_mobile"
+          href="/recipes" target="_self"><i class="icon-recipes"></i><span>Recipes</span></a><a
+          class="Button Button_md rm-Header-link rm-Header-bottom-link Button_slate_text Header-bottom-link_mobile"
+          href="/reference" target="_self"><i class="icon-references"></i><span>API Reference</span></a>
+      </nav>
+      <div
+        class="rm-Header-search Header-searchtb6Foi0-D9Vx Header-search_owlbot2iEpu0FSLYUx rm-Header-search_feather Header-search_featherYsmQBn55F3d9">
+        <div class="Dropdown Dropdown_closed">
+          <label
+              role="combobox"
+              aria-haspopup="dialog"
+              align="center"
+              class="Flex Flex_row rm-OwlbotAI SearchBert1u4IeBwd-ET6 Dropdown-toggle"
+              justify="start"
+              aria-expanded="false"
+              style="--flex-gap: var(--xs);"
+              ><div
+                for="SearchBert"
+                align="center"
+                class="Flex Flex_row"
+                justify="between"
+                style="--flex-gap: var(--md);"
+              >
+                <span class="IconWrapper Icon-wrapper2z2wVIeGsiUy"
+                  ><svg
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    class="Icon Icon3_D2ysxFZ_ll Icon-svg2Lm7f6G9Ly5a SearchBert-iconcNe5Mbc75DgZ"
+                    data-name="search"
+                    role="img"
+                    aria-label="Search"
+                    style="--icon-color: inherit; --icon-size: var(--icon-md); --icon-stroke-width: 2px;"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM21 21l-4.35-4.35"
+                      class="icon-stroke-width"
+                    ></path></svg
+                ></span>
+              </div>
+              <input
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                class="SearchBert-Prompt3UVFfRcBSAeq"
+                id="SearchBert"
+                placeholder="Search"
+                spellcheck="false"
+                tabindex="0"
+                type="search"
+                value=""
+              /><kbd
+                class="SearchBert-shortcut1r_efZ-JuvRB SearchBert-shortcut_input3smbsLZaUryG"
+                >Ctrl+K</kbd
+              ></label>
+        </div>
+        <!-- <button class="payu-ai-btn model-btn">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 2L15 8H9L12 2Z"></path>
+              <path d="M2 12L8 15V9L2 12Z"></path>
+              <path d="M22 12L16 9V15L22 12Z"></path>
+              <path d="M12 22L9 16H15L12 22Z"></path>
+            </svg>
+            PayU AI
+          </button> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      <div class="header-title">
+        <span>PayU <span class="ai-style">AI</span></span>
+      </div>
+      <button class="close-btn">×</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+
+      <div class="ai-intro">
+        <div class="thinking-indicator">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M8.84106 6.61742C9.38181 5.03496 11.5683 4.98703 12.2095 6.47365L12.2637 6.61833L12.9935 8.7524C13.1607 9.24182 13.4309 9.68968 13.786 10.0658C14.141 10.4419 14.5726 10.7375 15.0516 10.9326L15.2478 11.0058L17.3819 11.7347C18.9643 12.2754 19.0123 14.4619 17.5265 15.1031L17.3819 15.1573L15.2478 15.8871C14.7582 16.0542 14.3102 16.3244 13.9339 16.6794C13.5577 17.0345 13.2619 17.4661 13.0667 17.9452L12.9935 18.1405L12.2646 20.2755C11.7239 21.8579 9.53735 21.9059 8.89713 20.4202L8.84106 20.2755L8.11222 18.1414C7.9451 17.6518 7.67489 17.2038 7.31985 16.8275C6.96481 16.4513 6.53319 16.1555 6.05411 15.9603L5.85879 15.8871L3.72472 15.1582C2.14135 14.6175 2.09342 12.431 3.58004 11.7907L3.72472 11.7347L5.85879 11.0058C6.34821 10.8386 6.79607 10.5683 7.17217 10.2133C7.54826 9.85827 7.84385 9.4267 8.03898 8.94772L8.11222 8.7524L8.84106 6.61742ZM17.787 3.49951C17.9561 3.49951 18.1219 3.54697 18.2655 3.63648C18.409 3.726 18.5246 3.85399 18.599 4.0059L18.6424 4.1117C18.842 4.6968 19.3024 5.15655 19.8876 5.35597C20.0571 5.41357 20.2057 5.5202 20.3146 5.66235C20.4235 5.8045 20.4877 5.97577 20.4991 6.15446C20.5105 6.33314 20.4687 6.5112 20.3788 6.66606C20.2889 6.82092 20.1551 6.94562 19.9943 7.02434L19.8876 7.06775C19.3025 7.26734 18.8427 7.72777 18.6433 8.31292C18.5856 8.48241 18.4789 8.63095 18.3367 8.73973C18.1945 8.84851 18.0232 8.91263 17.8445 8.92396C17.6658 8.93529 17.4878 8.89332 17.333 8.80338C17.1782 8.71344 17.0536 8.57956 16.9749 8.41872L16.9315 8.31292C16.7319 7.72783 16.2715 7.26807 15.6864 7.06865C15.5168 7.01106 15.3682 6.90442 15.2593 6.76227C15.1505 6.62012 15.0863 6.44885 15.0748 6.27017C15.0634 6.09148 15.1053 5.91342 15.1951 5.75856C15.285 5.6037 15.4188 5.47901 15.5797 5.40028L15.6864 5.35688C16.2715 5.15728 16.7312 4.69686 16.9306 4.1117C16.9916 3.93304 17.107 3.77794 17.2605 3.66816C17.4141 3.55837 17.5982 3.4994 17.787 3.49951Z"
+              fill="#27A5BE" />
+            <path
+              d="M8.84106 6.61742C9.38181 5.03496 11.5683 4.98703 12.2095 6.47365L12.2637 6.61833L12.9935 8.7524C13.1607 9.24182 13.4309 9.68968 13.786 10.0658C14.141 10.4419 14.5726 10.7375 15.0516 10.9326L15.2478 11.0058L17.3819 11.7347C18.9643 12.2754 19.0123 14.4619 17.5265 15.1031L17.3819 15.1573L15.2478 15.8871C14.7582 16.0542 14.3102 16.3244 13.9339 16.6794C13.5577 17.0345 13.2619 17.4661 13.0667 17.9452L12.9935 18.1405L12.2646 20.2755C11.7239 21.8579 9.53735 21.9059 8.89713 20.4202L8.84106 20.2755L8.11222 18.1414C7.9451 17.6518 7.67489 17.2038 7.31985 16.8275C6.96481 16.4513 6.53319 16.1555 6.05411 15.9603L5.85879 15.8871L3.72472 15.1582C2.14135 14.6175 2.09342 12.431 3.58004 11.7907L3.72472 11.7347L5.85879 11.0058C6.34821 10.8386 6.79607 10.5683 7.17217 10.2133C7.54826 9.85827 7.84385 9.4267 8.03898 8.94772L8.11222 8.7524L8.84106 6.61742ZM17.787 3.49951C17.9561 3.49951 18.1219 3.54697 18.2655 3.63648C18.409 3.726 18.5246 3.85399 18.599 4.0059L18.6424 4.1117C18.842 4.6968 19.3024 5.15655 19.8876 5.35597C20.0571 5.41357 20.2057 5.5202 20.3146 5.66235C20.4235 5.8045 20.4877 5.97577 20.4991 6.15446C20.5105 6.33314 20.4687 6.5112 20.3788 6.66606C20.2889 6.82092 20.1551 6.94562 19.9943 7.02434L19.8876 7.06775C19.3025 7.26734 18.8427 7.72777 18.6433 8.31292C18.5856 8.48241 18.4789 8.63095 18.3367 8.73973C18.1945 8.84851 18.0232 8.91263 17.8445 8.92396C17.6658 8.93529 17.4878 8.89332 17.333 8.80338C17.1782 8.71344 17.0536 8.57956 16.9749 8.41872L16.9315 8.31292C16.7319 7.72783 16.2715 7.26807 15.6864 7.06865C15.5168 7.01106 15.3682 6.90442 15.2593 6.76227C15.1505 6.62012 15.0863 6.44885 15.0748 6.27017C15.0634 6.09148 15.1053 5.91342 15.1951 5.75856C15.285 5.6037 15.4188 5.47901 15.5797 5.40028L15.6864 5.35688C16.2715 5.15728 16.7312 4.69686 16.9306 4.1117C16.9916 3.93304 17.107 3.77794 17.2605 3.66816C17.4141 3.55837 17.5982 3.4994 17.787 3.49951Z"
+              fill="url(#paint0_linear_2_9111)" fill-opacity="0.54" />
+            <defs>
+              <linearGradient id="paint0_linear_2_9111" x1="2.5" y1="12.4995" x2="20.501" y2="12.4995"
+                gradientUnits="userSpaceOnUse">
+                <stop offset="0.655" stop-color="#3ACDEA" stop-opacity="0" />
+                <stop offset="1" stop-color="#FEFEFE" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <p>Hi! I am an AI Assistant trained to help you with anything related to PayU and its
+            services.<br> You can now ask me detailed queries.</br></p>
+
+        </div>
+
+      </div>
+   
+      <div class="example-questions">
+       
+        <p class="example-title">EXAMPLE QUESTIONS</p>
+        <div class="questions-list"></div>
+      </div>
+    </div>
+    <div class="chat-input">
+    <textarea placeholder="Type your message..."></textarea>
+    <button class="send-btn">➡️</button>
+</div>
+
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="src/script.js"></script>
+</body>
+
+</html>
