@@ -1,10 +1,10 @@
 import $ from 'jquery'
 $(document).ready(function () {
-  var sessionId;
-  function addModelButton() {
-    const searchContainer = $(".rm-Header-search");
-    if (searchContainer.length && $(".model-btn").length === 0) {
-      const modelButton = `
+    var sessionId;
+    function addModelButton() {
+      const searchContainer = $('.rm-Header-search');
+      if (searchContainer.length && $('.model-btn').length === 0) {
+        const modelButton = `
                 <button class="payu-ai-btn model-btn">
                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                <path d="M7.36747 5.51452C7.8181 4.1958 9.64019 4.15586 10.1745 5.3947L10.2197 5.51527L10.8278 7.29366C10.9672 7.70151 11.1924 8.07473 11.4882 8.38815C11.7841 8.70156 12.1437 8.94788 12.5429 9.11049L12.7064 9.17153L14.4848 9.77889C15.8035 10.2295 15.8435 12.0516 14.6054 12.5859L14.4848 12.6311L12.7064 13.2392C12.2984 13.3785 11.9251 13.6037 11.6115 13.8995C11.298 14.1954 11.0515 14.5551 10.8888 14.9543L10.8278 15.1171L10.2204 16.8962C9.76981 18.2149 7.94771 18.2549 7.41419 17.0168L7.36747 16.8962L6.7601 15.1178C6.62083 14.7098 6.39566 14.3365 6.09979 14.0229C5.80392 13.7094 5.44424 13.4629 5.04501 13.3003L4.88224 13.2392L3.10385 12.6319C1.78437 12.1812 1.74444 10.3591 2.98328 9.82561L3.10385 9.77889L4.88224 9.17153C5.29009 9.03216 5.66331 8.80695 5.97673 8.51109C6.29014 8.21522 6.53646 7.85558 6.69907 7.45643L6.7601 7.29366L7.36747 5.51452ZM8.79395 6.00132L8.18659 7.77971C7.97438 8.40162 7.62916 8.9698 7.17496 9.44469C6.72077 9.91957 6.16852 10.2897 5.55668 10.5294L5.36829 10.598L3.58989 11.2054L5.36829 11.8127C5.9902 12.0249 6.55838 12.3702 7.03326 12.8244C7.50815 13.2786 7.87832 13.8308 8.11801 14.4426L8.18659 14.631L8.79395 16.4094L9.40132 14.631C9.61353 14.0091 9.95875 13.4409 10.4129 12.9661C10.8671 12.4912 11.4194 12.121 12.0312 11.8813L12.2196 11.8135L13.998 11.2054L12.2196 10.598C11.5977 10.3858 11.0295 10.0406 10.5546 9.58639C10.0798 9.13219 9.70958 8.57994 9.46989 7.9681L9.40207 7.77971L8.79395 6.00132ZM14.8224 2.91626C14.9634 2.91626 15.1015 2.95581 15.2211 3.0304C15.3408 3.105 15.4371 3.21166 15.4991 3.33825L15.5353 3.42642L15.799 4.19957L16.5729 4.46331C16.7142 4.51131 16.838 4.60017 16.9288 4.71863C17.0195 4.83708 17.073 4.97981 17.0825 5.12872C17.092 5.27762 17.0571 5.426 16.9823 5.55505C16.9074 5.6841 16.7958 5.78802 16.6618 5.85362L16.5729 5.88979L15.7998 6.15354L15.536 6.92744C15.4879 7.06868 15.399 7.19246 15.2805 7.28311C15.162 7.37376 15.0193 7.42719 14.8704 7.43663C14.7215 7.44607 14.5731 7.4111 14.4441 7.33615C14.3151 7.2612 14.2112 7.14964 14.1457 7.0156L14.1095 6.92744L13.8458 6.15429L13.0719 5.89054C12.9306 5.84255 12.8068 5.75369 12.716 5.63523C12.6253 5.51677 12.5718 5.37404 12.5623 5.22514C12.5528 5.07623 12.5876 4.92785 12.6625 4.7988C12.7374 4.66975 12.849 4.56584 12.983 4.50023L13.0719 4.46406L13.845 4.20032L14.1088 3.42642C14.1596 3.27753 14.2557 3.14829 14.3837 3.0568C14.5117 2.96531 14.6651 2.91617 14.8224 2.91626Z" fill="white"/>
@@ -13,137 +13,142 @@ $(document).ready(function () {
                   PayU AI
                 </button>
               `;
-      searchContainer.append(modelButton);
+        searchContainer.append(modelButton);
+      }
     }
-  }
-
-  setTimeout(addModelButton, 1000);
-
-  // Function to get user and bot messages
-  function scrollToBottom() {
-    const chatMessages = document.querySelector(".chat-messages");
-    chatMessages.scrollTo({
-      top: chatMessages.scrollHeight,
-      behavior: "smooth",
-    });
-  }
-  let isFirstMessage = true;
-
-  function updatePlaceholder() {
-    const inputField = document.querySelector(".chat-input textarea");
-    inputField.placeholder = isFirstMessage
-      ? "Write an elaborate query and press enter to get a response"
-      : "Ask a follow-up question";
-  }
-
-  const inputField = document.querySelector(".chat-input textarea");
-  const button = document.querySelector(".send-btn");
-  let isTyping = false;
-
-  function updateButton(isTyping) {
-    const inputValue = inputField.value.trim();
-    if (!isTyping) {
-      button.innerHTML = `
+    
+    setTimeout(addModelButton, 1000);
+    
+    // Function to get user and bot messages
+    function scrollToBottom() {
+      const chatMessages = document.querySelector('.chat-messages');
+      chatMessages.scrollTo({
+        top: chatMessages.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+    let isFirstMessage = true;
+    
+    function updatePlaceholder() {
+      const inputField = document.querySelector('.chat-input textarea');
+      inputField.placeholder = isFirstMessage
+        ? 'Write an elaborate query and press enter to get a response'
+        : 'Ask a follow-up question';
+    }
+    
+    const inputField = document.querySelector('.chat-input textarea');
+    const button = document.querySelector('.send-btn');
+    let isTyping = false;
+    
+    function updateButton(isTyping) {
+      const inputValue = inputField.value.trim();
+      if (!isTyping) {
+        button.innerHTML = `
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="${
-          inputValue ? "#E9F6F9" : "#F5F5F5"
+          inputValue ? '#E9F6F9' : '#F5F5F5'
         }" />
         <path d="M21.92 15.62C21.8724 15.4973 21.801 15.3851 21.71 15.29L16.71 10.29C16.6168 10.1968 16.5061 10.1228 16.3842 10.0723C16.2624 10.0219 16.1319 9.99591 16 9.99591C15.7337 9.99591 15.4783 10.1017 15.29 10.29C15.1968 10.3832 15.1228 10.4939 15.0723 10.6158C15.0219 10.7376 14.9959 10.8681 14.9959 11C14.9959 11.2663 15.1017 11.5217 15.29 11.71L18.59 15H11C10.7348 15 10.4804 15.1054 10.2929 15.2929C10.1054 15.4804 10 15.7348 10 16C10 16.2652 10.1054 16.5196 10.2929 16.7071C10.4804 16.8946 10.7348 17 11 17H18.59L15.29 20.29C15.1963 20.383 15.1219 20.4936 15.0711 20.6154C15.0203 20.7373 14.9942 20.868 14.9942 21C14.9942 21.132 15.0203 21.2627 15.0711 21.3846C15.1219 21.5064 15.1963 21.617 15.29 21.71C15.383 21.8037 15.4936 21.8781 15.6154 21.9289C15.7373 21.9797 15.868 22.0058 16 22.0058C16.132 22.0058 16.2627 21.9797 16.3846 21.9289C16.5064 21.8781 16.617 21.8037 16.71 21.71L21.71 16.71C21.801 16.6149 21.8724 16.5028 21.92 16.38C22.02 16.1365 22.02 15.8635 21.92 15.62Z"fill="${
-          inputValue ? "#27A5BE" : "#999999"
+          inputValue ? '#27A5BE' : '#999999'
         }" />/>
         </svg>
-  
+    
           `;
-    } else {
-      button.innerHTML = `<svg  width="28px" height="28px" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="100" cy="100" r="100" fill="#F5F5F5"/>
-  <path d="M111.667 140.833H135V59.1665H111.667M65 140.833H88.3333V59.1665H65V140.833Z" fill="#999999"/>
-  </svg>`;
+      } else {
+        button.innerHTML = `<svg  width="28px" height="28px" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="100" fill="#F5F5F5"/>
+    <path d="M111.667 140.833H135V59.1665H111.667M65 140.833H88.3333V59.1665H65V140.833Z" fill="#999999"/>
+    </svg>`;
+      }
     }
-  }
-  inputField.addEventListener("input", function () {
+    inputField.addEventListener('input', function () {
+    
     updateButton(false);
-  });
-  $(".send-btn").on("click", function () {
-    if (isTyping) {
-      clearTimeout(typingTimeout);
-      updateButton(false);
-      isTyping = false;
-    } else {
-      sendQuery();
-      $(".chat-input textarea").val("");
-    }
-  });
-  inputField.addEventListener("textarea", () => {
-    updateButton(false);
-  });
-
-  updateButton(false);
-  $(document).on("click", ".model-btn", function () {
-    $(".chat-container").fadeIn(300);
-    $("body").css({
-      overflow: "hidden",
     });
-  });
-
-  $(document).on("click", ".close-btn", function () {
-    $(".chat-container").fadeOut(300);
-
-    $("body").css("overflow", "auto");
-    refreshChatModal();
-  });
-  const exampleQuestions = [
-    "What is BNPL?",
-    "I want a payment gateway for my Android application",
-    "High-level overview of the security and authentication of payment APIs",
-  ];
-
-  const originalContent = $("#chat-messages").html();
-
-  function refreshChatModal() {
-    $("#chat-messages").html(originalContent);
+    $('.send-btn').on('click', function () {
+      if (isTyping) {
+        clearTimeout(typingTimeout);
+        updateButton(false);
+        isTyping = false;
+      } else {
+        sendQuery();
+        $('.chat-input textarea').val('');
+      }
+    });
+    inputField.addEventListener('textarea', () => {
+      updateButton(false);
+    });
+    
+    updateButton(false);
+    $(document).on('click', '.model-btn', function () {
+    
+      $('.chat-container').fadeIn(300);
+      $('body').css({
+        overflow: 'hidden',
+      });
+    });
+    
+    $(document).on('click', '.close-btn', function () {
+      $('.chat-container').fadeOut(300);
+      
+      $('body').css('overflow', 'auto');
+        refreshChatModal(); 
+      
+    });
+     const exampleQuestions = [
+      'What is BNPL?',
+      'I want a payment gateway for my Android application',
+      'High-level overview of the security and authentication of payment APIs',
+    ];
+    
+    const originalContent = $('#chat-messages').html(); 
+    
+    function refreshChatModal() {
+    $('#chat-messages').html(originalContent);
     appendQuestions(exampleQuestions);
-    $(".chat-input textarea").val("");
-    sessionId = "";
-    $(".response-footer").hide();
+    $('.chat-input textarea').val('');
+      sessionId='';
+    $('.response-footer').hide();
     isResponseAdded = false;
-    isFirstMessage = true;
-    updatePlaceholder();
+    isFirstMessage=true;
+    updatePlaceholder()
     isTyping = false;
     updateButton(false);
-  }
-
-  $(".chat-textarea")
-    .on("focus", function () {
-      $(this).addClass("focused");
+    
+    }
+    
+    
+    $('.chat-textarea')
+    .on('focus', function () {
+      $(this).addClass('focused');
       isTyping = true;
     })
-    .on("blur", function () {
-      $(this).removeClass("focused");
+    .on('blur', function () {
+      $(this).removeClass('focused');
       isTyping = false;
     });
-  $(".chat-textarea").css({
-    flex: "1",
-    height: "37px",
-    padding: "3px",
-    width: "100%",
-    "border-radius": "8px",
-    "font-size": "medium",
-    "font-family": " Gilroy, Inter, sans-serif",
-    outline: "none",
-    transition: "border-color 0.2s",
-    border: "1px solid #b4b4b4",
-    "border-color": "#b4b4b4",
-    color: "#333",
-    resize: "none",
-    "overflow-y": "auto",
-    "word-wrap": "break-word",
-    "white-space": "pre-wrap",
-  });
-
-  function appendQuestions(questions) {
-    questions.forEach((question) => {
-      $(".questions-list").append(`
+    $('.chat-textarea').css({
+    'flex': '1',
+    'height': '37px',
+    'padding': '3px',
+    'width': '100%',
+    'border-radius': '8px',
+    'font-size': 'medium',
+    'font-family':' Gilroy, Inter, sans-serif',
+    'outline': 'none',
+    'transition': 'border-color 0.2s',
+    'border': '1px solid #b4b4b4',
+    'border-color': '#b4b4b4',
+    'color': '#333',
+    'resize': 'none',
+    'overflow-y': 'auto',
+    'word-wrap': 'break-word',
+    'white-space': 'pre-wrap'
+    });
+    
+    function appendQuestions(questions) {
+      questions.forEach(question => {
+        $('.questions-list').append(`
       <div class="example-question">
         <div class="question-content">
           <div class="icon-container">
@@ -179,47 +184,53 @@ $(document).ready(function () {
               </defs>
             </svg>
             <svg width="40" class="send-icon"  height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="32" height="32" rx="16" fill="#E9F6F9"/>
-  <rect width="32" height="32" rx="16" fill="url(#paint0_linear_2_9124)" fill-opacity="0.2"/>
-  <path d="M21.92 15.62C21.8724 15.4973 21.801 15.3851 21.71 15.29L16.71 10.29C16.6168 10.1968 16.5061 10.1228 16.3842 10.0723C16.2624 10.0219 16.1319 9.99591 16 9.99591C15.7337 9.99591 15.4783 10.1017 15.29 10.29C15.1968 10.3832 15.1228 10.4939 15.0723 10.6158C15.0219 10.7376 14.9959 10.8681 14.9959 11C14.9959 11.2663 15.1017 11.5217 15.29 11.71L18.59 15H11C10.7348 15 10.4804 15.1054 10.2929 15.2929C10.1054 15.4804 10 15.7348 10 16C10 16.2652 10.1054 16.5196 10.2929 16.7071C10.4804 16.8946 10.7348 17 11 17H18.59L15.29 20.29C15.1963 20.383 15.1219 20.4936 15.0711 20.6154C15.0203 20.7373 14.9942 20.868 14.9942 21C14.9942 21.132 15.0203 21.2627 15.0711 21.3846C15.1219 21.5064 15.1963 21.617 15.29 21.71C15.383 21.8037 15.4936 21.8781 15.6154 21.9289C15.7373 21.9797 15.868 22.0058 16 22.0058C16.132 22.0058 16.2627 21.9797 16.3846 21.9289C16.5064 21.8781 16.617 21.8037 16.71 21.71L21.71 16.71C21.801 16.6149 21.8724 16.5028 21.92 16.38C22.02 16.1365 22.02 15.8635 21.92 15.62Z" fill="#27A5BE"/>
-  <defs>
-  <linearGradient id="paint0_linear_2_9124" x1="6.5" y1="4" x2="32" y2="36" gradientUnits="userSpaceOnUse">
-  <stop stop-color="#F7FCFC"/>
-  <stop offset="1" stop-color="#52B7CB"/>
-  </linearGradient>
-  </defs>
-  </svg>
-  
+    <rect width="32" height="32" rx="16" fill="#E9F6F9"/>
+    <rect width="32" height="32" rx="16" fill="url(#paint0_linear_2_9124)" fill-opacity="0.2"/>
+    <path d="M21.92 15.62C21.8724 15.4973 21.801 15.3851 21.71 15.29L16.71 10.29C16.6168 10.1968 16.5061 10.1228 16.3842 10.0723C16.2624 10.0219 16.1319 9.99591 16 9.99591C15.7337 9.99591 15.4783 10.1017 15.29 10.29C15.1968 10.3832 15.1228 10.4939 15.0723 10.6158C15.0219 10.7376 14.9959 10.8681 14.9959 11C14.9959 11.2663 15.1017 11.5217 15.29 11.71L18.59 15H11C10.7348 15 10.4804 15.1054 10.2929 15.2929C10.1054 15.4804 10 15.7348 10 16C10 16.2652 10.1054 16.5196 10.2929 16.7071C10.4804 16.8946 10.7348 17 11 17H18.59L15.29 20.29C15.1963 20.383 15.1219 20.4936 15.0711 20.6154C15.0203 20.7373 14.9942 20.868 14.9942 21C14.9942 21.132 15.0203 21.2627 15.0711 21.3846C15.1219 21.5064 15.1963 21.617 15.29 21.71C15.383 21.8037 15.4936 21.8781 15.6154 21.9289C15.7373 21.9797 15.868 22.0058 16 22.0058C16.132 22.0058 16.2627 21.9797 16.3846 21.9289C16.5064 21.8781 16.617 21.8037 16.71 21.71L21.71 16.71C21.801 16.6149 21.8724 16.5028 21.92 16.38C22.02 16.1365 22.02 15.8635 21.92 15.62Z" fill="#27A5BE"/>
+    <defs>
+    <linearGradient id="paint0_linear_2_9124" x1="6.5" y1="4" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#F7FCFC"/>
+    <stop offset="1" stop-color="#52B7CB"/>
+    </linearGradient>
+    </defs>
+    </svg>
+    
           </div>
           <span>${question}</span>
         </div>
       </div>
     `);
-    });
-  }
-
-  appendQuestions(exampleQuestions);
-  const BaseUrl = "https://450e-34-68-201-26.ngrok-free.app";
-
-  function formatText(text) {
-    return text
-
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/```([\s\S]*?)```/g, "<code>$1</code>")
-      .replace(/^\d+\.\s*(.*)$/gm, "")
-      .replace(/(?<!<pre>[\s\S]*?)\\n/g, "<br>")
-      .replace(/["“”']/g, "")
-      .replace(/⚠/g, "")
-      .replace(/`/g, "")
-      .replace(/\n\n+/g, "\n\n")
-      .replace(/(?<!<code>.*)`(?!.*<\/code>)/g, "")
-
-      .trim();
-  }
-
-  const query = $(".chat-input textarea").val().trim();
-
-  const replySvg = `
+      });
+    }
+    
+    appendQuestions(exampleQuestions);
+     const BaseUrl = 'https://a02f-34-68-201-26.ngrok-free.app'
+    
+    function formatText(text) {
+      return text
+    
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/```([\s\S]*?)```/g, '<code>$1</code>')
+        .replace(/^\d+\.\s*(.*)$/gm, '')
+        .replace(/(?<!<pre>[\s\S]*?)\\n/g, '<br>')
+        .replace(/["“”']/g, '')
+        .replace(/⚠/g, '')
+        .replace(/`/g, '')
+        .replace(/\n\n+/g, '\n\n')
+        .replace(/(?<!<code>.*)`(?!.*<\/code>)/g, '')
+    
+        .trim();
+    }
+    
+    const query = $('.chat-input textarea').val().trim();
+    function markdownToHtml(text) {
+    
+      const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+      return text.replace(markdownLinkRegex, (match, linkText, url) => {
+          return `<a href="${url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
+      });
+    }
+    const replySvg = `
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.84106 6.61742C9.38181 5.03496 11.5683 4.98703 12.2095 6.47365L12.2637 6.61833L12.9935 8.7524C13.1607 9.24182 13.4309 9.68968 13.786 10.0658C14.141 10.4419 14.5726 10.7375 15.0516 10.9326L15.2478 11.0058L17.3819 11.7347C18.9643 12.2754 19.0123 14.4619 17.5265 15.1031L17.3819 15.1573L15.2478 15.8871C14.7582 16.0542 14.3102 16.3244 13.9339 16.6794C13.5577 17.0345 13.2619 17.4661 13.0667 17.9452L12.9935 18.1405L12.2646 20.2755C11.7239 21.8579 9.53735 21.9059 8.89713 20.4202L8.84106 20.2755L8.11222 18.1414C7.9451 17.6518 7.67489 17.2038 7.31985 16.8275C6.96481 16.4513 6.53319 16.1555 6.05411 15.9603L5.85879 15.8871L3.72472 15.1582C2.14135 14.6175 2.09342 12.431 3.58004 11.7907L3.72472 11.7347L5.85879 11.0058C6.34821 10.8386 6.79607 10.5683 7.17217 10.2133C7.54826 9.85827 7.84385 9.4267 8.03898 8.94772L8.11222 8.7524L8.84106 6.61742ZM17.787 3.49951C17.9561 3.49951 18.1219 3.54697 18.2655 3.63648C18.409 3.726 18.5246 3.85399 18.599 4.0059L18.6424 4.1117C18.842 4.6968 19.3024 5.15655 19.8876 5.35597C20.0571 5.41357 20.2057 5.5202 20.3146 5.66235C20.4235 5.8045 20.4877 5.97577 20.4991 6.15446C20.5105 6.33314 20.4687 6.5112 20.3788 6.66606C20.2889 6.82092 20.1551 6.94562 19.9943 7.02434L19.8876 7.06775C19.3025 7.26734 18.8427 7.72777 18.6433 8.31292C18.5856 8.48241 18.4789 8.63095 18.3367 8.73973C18.1945 8.84851 18.0232 8.91263 17.8445 8.92396C17.6658 8.93529 17.4878 8.89332 17.333 8.80338C17.1782 8.71344 17.0536 8.57956 16.9749 8.41872L16.9315 8.31292C16.7319 7.72783 16.2715 7.26807 15.6864 7.06865C15.5168 7.01106 15.3682 6.90442 15.2593 6.76227C15.1505 6.62012 15.0863 6.44885 15.0748 6.27017C15.0634 6.09148 15.1053 5.91342 15.1951 5.75856C15.285 5.6037 15.4188 5.47901 15.5797 5.40028L15.6864 5.35688C16.2715 5.15728 16.7312 4.69686 16.9306 4.1117C16.9916 3.93304 17.107 3.77794 17.2605 3.66816C17.4141 3.55837 17.5982 3.4994 17.787 3.49951Z" fill="#27A5BE"/>
               <path d="M8.84106 6.61742C9.38181 5.03496 11.5683 4.98703 12.2095 6.47365L12.2637 6.61833L12.9935 8.7524C13.1607 9.24182 13.4309 9.68968 13.786 10.0658C14.141 10.4419 14.5726 10.7375 15.0516 10.9326L15.2478 11.0058L17.3819 11.7347C18.9643 12.2754 19.0123 14.4619 17.5265 15.1031L17.3819 15.1573L15.2478 15.8871C14.7582 16.0542 14.3102 16.3244 13.9339 16.6794C13.5577 17.0345 13.2619 17.4661 13.0667 17.9452L12.9935 18.1405L12.2646 20.2755C11.7239 21.8579 9.53735 21.9059 8.89713 20.4202L8.84106 20.2755L8.11222 18.1414C7.9451 17.6518 7.67489 17.2038 7.31985 16.8275C6.96481 16.4513 6.53319 16.1555 6.05411 15.9603L5.85879 15.8871L3.72472 15.1582C2.14135 14.6175 2.09342 12.431 3.58004 11.7907L3.72472 11.7347L5.85879 11.0058C6.34821 10.8386 6.79607 10.5683 7.17217 10.2133C7.54826 9.85827 7.84385 9.4267 8.03898 8.94772L8.11222 8.7524L8.84106 6.61742ZM17.787 3.49951C17.9561 3.49951 18.1219 3.54697 18.2655 3.63648C18.409 3.726 18.5246 3.85399 18.599 4.0059L18.6424 4.1117C18.842 4.6968 19.3024 5.15655 19.8876 5.35597C20.0571 5.41357 20.2057 5.5202 20.3146 5.66235C20.4235 5.8045 20.4877 5.97577 20.4991 6.15446C20.5105 6.33314 20.4687 6.5112 20.3788 6.66606C20.2889 6.82092 20.1551 6.94562 19.9943 7.02434L19.8876 7.06775C19.3025 7.26734 18.8427 7.72777 18.6433 8.31292C18.5856 8.48241 18.4789 8.63095 18.3367 8.73973C18.1945 8.84851 18.0232 8.91263 17.8445 8.92396C17.6658 8.93529 17.4878 8.89332 17.333 8.80338C17.1782 8.71344 17.0536 8.57956 16.9749 8.41872L16.9315 8.31292C16.7319 7.72783 16.2715 7.26807 15.6864 7.06865C15.5168 7.01106 15.3682 6.90442 15.2593 6.76227C15.1505 6.62012 15.0863 6.44885 15.0748 6.27017C15.0634 6.09148 15.1053 5.91342 15.1951 5.75856C15.285 5.6037 15.4188 5.47901 15.5797 5.40028L15.6864 5.35688C16.2715 5.15728 16.7312 4.69686 16.9306 4.1117C16.9916 3.93304 17.107 3.77794 17.2605 3.66816C17.4141 3.55837 17.5982 3.4994 17.787 3.49951Z" fill="url(#paint0_linear_2_9824)" fill-opacity="0.54"/>
@@ -230,25 +241,25 @@ $(document).ready(function () {
               </linearGradient>
               </defs>
               </svg>
-  
+    
           `;
-
-  function sendQuery(querys) {
-    const query = $(".chat-input textarea").val().trim();
-    userQuery = query || querys;
-
-    if (query !== "" || querys !== "") {
-      $(".ai-intro, .example-questions").hide();
-      $(".chat-messages").append(
-        `<div class="user-message">${query || querys}
+    
+    function sendQuery(querys) {
+      const query = $('.chat-input textarea').val().trim();
+      userQuery = query || querys;
+    
+      if (query !== '' || querys !== '') {
+          $('.ai-intro, .example-questions').hide();
+          $('.chat-messages').append(
+              `<div class="user-message">${query || querys}
               <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM12 7C13.7 7 15 8.3 15 10C15 11.7 13.7 13 12 13C10.3 13 9 11.7 9 10C9 8.3 10.3 7 12 7ZM12 20C9.8 20 7.7 19.1 6.2 17.5C8.4 14.3 12.7 13.5 15.9 15.7C16.6 16.2 17.2 16.8 17.7 17.5C16.3 19.1 14.2 20 12 20Z" fill="#717D7B"/>
                   </svg></span>
           </div>`
-      );
-      $(".chat-input textarea").val("").prop("disabled", true);
-      setTimeout(scrollToBottom, 100);
-      $(".chat-messages").append(`
+          );
+          $('.chat-input textarea').val('').prop('disabled', true);
+          setTimeout(scrollToBottom, 100);
+          $('.chat-messages').append(`
               <div class="thinking-indicators"><svg width="25" class="think-icon" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_66_1288)">
                   <path d="M9.341 6.11791C9.88175 4.53545 12.0683 4.48752 12.7094 5.97413L12.7637 6.11882L13.4934 8.25289C13.6606 8.74231 13.9309 9.19017 14.2859 9.56626C14.641 9.94236 15.0725 10.2379 15.5515 10.4331L15.7477 10.5063L17.8818 11.2352C19.4643 11.7759 19.5122 13.9624 18.0265 14.6036L17.8818 14.6578L15.7477 15.3876C15.2581 15.5547 14.8101 15.8249 14.4338 16.1799C14.0576 16.535 13.7619 16.9666 13.5666 17.4457L13.4934 17.641L12.7646 19.776C12.2238 21.3584 10.0373 21.4064 9.39706 19.9206L9.341 19.776L8.61216 17.6419C8.44503 17.1523 8.17483 16.7043 7.81979 16.328C7.46475 15.9517 7.03312 15.656 6.55405 15.4608L6.35873 15.3876L4.22466 14.6587C2.64129 14.118 2.59336 11.9314 4.07998 11.2912L4.22466 11.2352L6.35873 10.5063C6.84815 10.3391 7.29601 10.0688 7.67211 9.71379C8.0482 9.35876 8.34379 8.92719 8.53892 8.44821L8.61216 8.25289L9.341 6.11791ZM11.7825 8.83614C11.5448 8.14093 10.5614 8.14084 10.3239 8.83614C10.0693 9.58243 9.65502 10.2643 9.10999 10.8341C8.56496 11.404 7.90226 11.8482 7.16805 12.1358L6.94198 12.2181C6.24697 12.4555 6.24697 13.4384 6.94198 13.6758C7.68827 13.9304 8.37009 14.3447 8.93995 14.8897C9.50982 15.4348 9.95403 16.0974 10.2417 16.8317L10.3239 17.0577C10.5613 17.7527 11.5443 17.7527 11.7816 17.0577C12.0363 16.3114 12.4505 15.6296 12.9956 15.0598C13.5406 14.4899 14.2033 14.0457 14.9375 13.7581L15.1636 13.6767C15.8588 13.439 15.8589 12.4556 15.1636 12.2181C14.4173 11.9634 13.7355 11.5492 13.1656 11.0042C12.5957 10.4591 12.1515 9.79642 11.8639 9.06221L11.7825 8.83614ZM18.2869 3C18.4561 3 18.6219 3.04745 18.7654 3.13697C18.909 3.22649 19.0245 3.35448 19.0989 3.50639L19.1423 3.61219C19.3419 4.19729 19.8024 4.65704 20.3875 4.85646C20.5571 4.91406 20.7057 5.02069 20.8145 5.16284C20.9234 5.30499 20.9876 5.47626 20.9991 5.65495C21.0105 5.83363 20.9686 6.01169 20.8787 6.16655C20.7889 6.32141 20.655 6.44611 20.4942 6.52483L20.3875 6.56824C19.8024 6.76783 19.3427 7.22826 19.1433 7.81341C19.0856 7.9829 18.9788 8.13144 18.8366 8.24022C18.6944 8.349 18.5231 8.41312 18.3445 8.42445C18.1658 8.43578 17.9878 8.39381 17.833 8.30387C17.6781 8.21392 17.5535 8.08005 17.4749 7.91921L17.4315 7.81341C17.2319 7.22832 16.7715 6.76856 16.1863 6.56914C16.0168 6.51154 15.8681 6.40491 15.7593 6.26276C15.6504 6.12061 15.5862 5.94934 15.5748 5.77066C15.5633 5.59197 15.6052 5.41391 15.6951 5.25905C15.785 5.10419 15.9188 4.9795 16.0796 4.90077L16.1863 4.85736C16.7714 4.65777 17.2312 4.19734 17.4306 3.61219C17.4915 3.43353 17.6069 3.27843 17.7605 3.16864C17.9141 3.05886 18.0981 2.99989 18.2869 3Z" fill="#27A5BE"/>
@@ -266,243 +277,253 @@ $(document).ready(function () {
                   </defs>
                   </svg>
                   <span class="thinking-text"></span><svg class="dots" width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="8" height="16" fill="#27A5BE"/>
-  </svg>
+    <rect width="8" height="16" fill="#27A5BE"/>
+    </svg>
               </div>
           `);
-
-      let requestData = {
-        question: querys ? querys : query,
-        ...(sessionId && { session_id: sessionId }),
-      };
-
-      let isResponseAdded = false;
-
-      $.ajax({
-        url: `${BaseUrl}/ask`,
-        type: "POST",
-        contentType: "application/json",
-        retryLimit: 3,
-        retryCount: 0,
-        retryDelay: 2000,
-        data: JSON.stringify({ ...requestData }),
-        success: function (responses) {
-          $(".chat-messages .thinking-indicators").remove();
-          $(".chat-input textarea").val("").prop("disabled", false);
-
-          const response = responses;
-          const id = responses?.response_id;
-          if (responses?.session_id) {
-            sessionId = responses?.session_id;
-          }
-
-          const chatContainer = document.getElementById("chat-messages");
-          setTimeout(scrollToBottom, 100);
-
-          if (
-            response?.response.includes("Connection timed out") ||
-            response?.response.includes("Error during chat processing")
-          ) {
-            let errorMessage = `
+    
+          let requestData = {
+              question: querys ? querys : query,
+              ...(sessionId && { session_id: sessionId }),
+          };
+    
+          let isResponseAdded = false;
+    
+          $.ajax({
+              url: `${BaseUrl}/ask`,
+              type: 'POST',
+              contentType: 'application/json',
+              retryLimit: 3,
+              retryCount: 0,
+              retryDelay: 2000,
+              data: JSON.stringify({ ...requestData }),
+              success: function (responses) {
+                  $('.chat-messages .thinking-indicators').remove();
+                  $('.chat-input textarea').val('').prop('disabled', false);
+    
+                  const response = responses;
+               let formattedResponse = response.response.replace(/```markdown\n?/g, '').replace(/```$/g, '');
+    
+    
+                  const id = responses?.response_id;
+                  if (responses?.session_id) {
+                      sessionId = responses?.session_id;
+                  }
+    
+                  const chatContainer = document.getElementById('chat-messages');
+                  setTimeout(scrollToBottom, 100);
+    
+                  if (
+                      response?.response.includes('Connection timed out') ||
+                      response?.response.includes('Error during chat processing')
+                  ) {
+                      let errorMessage = `
                           <div class="bot-message-error">
                               <div class="error-container">
                                   <span class="error-icon"></span>
                                   <span>${formatText(response.response)}</span>
                               </div>
                           </div>`;
-            $(".chat-messages").append(errorMessage);
-            return;
+                      $('.chat-messages').append(errorMessage);
+                      return;
+                  }
+    
+                  if (isResponseAdded) return;
+                  isResponseAdded = true;
+                  updateButton(false);
+    
+                  let matched = false;
+                    matched = true;
+                    let summaryText = formattedResponse.includes("## Code")
+                        ? formattedResponse.split("## Code")[0].trim()
+                        : formattedResponse.trim();
+                    
+                    const summaryContainer = document.createElement("div");
+                    summaryContainer.className = "reply-message";
+                    
+                    const summaryP = document.createElement("p");
+                    summaryP.className = "reply-text";
+                    
+                    summaryContainer.insertAdjacentHTML("afterbegin", replySvg);
+                    summaryContainer.appendChild(summaryP);
+                    chatContainer.appendChild(summaryContainer);
+                    
+                    summaryText = summaryText.replace(/\\n/g, '\n');
+                
+                        typeText(summaryP, marked.parse(summaryText), 5);
+    
+                // --- CODE ---
+            const codeMatch = formattedResponse.match(/```(?:\w+)?\n([\s\S]*?)```/);
+            if (codeMatch) {
+                matched = true;
+                const codeContent = codeMatch[1];
+                const escapedCodeContent = codeContent
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+                const languageMatch = formattedResponse.match(/```(\w+)/);
+                const language = languageMatch ? languageMatch[1] : "Code";
+            
+                const formattedCode = `
+                <div class="reply-message" id="response-${id}">
+                    <p class="bot-text summary" id="summary-${id}"></p> 
+                </div>
+                <div class="bot-message" id="bot-message-${id}">
+                    <div class="code-header">
+                        <div class="code-language">${language}</div>
+                        <div class="code-header-right" data-code-id="${id}">
+                                <span onclick="copyCode(this)" class="copy-svg"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.5 6.45002C15.4913 6.37347 15.4746 6.29805 15.45 6.22502V6.15002C15.4099 6.06434 15.3565 5.98557 15.2917 5.91669L10.2917 0.916687C10.2228 0.851867 10.144 0.798421 10.0583 0.758354C10.0335 0.75482 10.0082 0.75482 9.98333 0.758354C9.89868 0.709805 9.80519 0.678641 9.70833 0.666687H6.33333C5.67029 0.666687 5.03441 0.930079 4.56557 1.39892C4.09673 1.86776 3.83333 2.50365 3.83333 3.16669V4.00002H3C2.33696 4.00002 1.70107 4.26341 1.23223 4.73225C0.763392 5.20109 0.5 5.83698 0.5 6.50002V14.8334C0.5 15.4964 0.763392 16.1323 1.23223 16.6011C1.70107 17.07 2.33696 17.3334 3 17.3334H9.66667C10.3297 17.3334 10.9656 17.07 11.4344 16.6011C11.9033 16.1323 12.1667 15.4964 12.1667 14.8334V14H13C13.663 14 14.2989 13.7366 14.7678 13.2678C15.2366 12.7989 15.5 12.1631 15.5 11.5V6.50002C15.5 6.50002 15.5 6.50002 15.5 6.45002ZM10.5 3.50835L12.6583 5.66669H11.3333C11.1123 5.66669 10.9004 5.57889 10.7441 5.42261C10.5878 5.26633 10.5 5.05437 10.5 4.83335V3.50835ZM10.5 14.8334C10.5 15.0544 10.4122 15.2663 10.2559 15.4226C10.0996 15.5789 9.88768 15.6667 9.66667 15.6667H3C2.77899 15.6667 2.56702 15.5789 2.41074 15.4226C2.25446 15.2663 2.16667 15.0544 2.16667 14.8334V6.50002C2.16667 6.27901 2.25446 6.06705 2.41074 5.91077C2.56702 5.75448 2.77899 5.66669 3 5.66669H3.83333V11.5C3.83333 12.1631 4.09673 12.7989 4.56557 13.2678C5.03441 13.7366 5.67029 14 6.33333 14H10.5V14.8334ZM13.8333 11.5C13.8333 11.721 13.7455 11.933 13.5893 12.0893C13.433 12.2456 13.221 12.3334 13 12.3334H6.33333C6.11232 12.3334 5.90036 12.2456 5.74408 12.0893C5.5878 11.933 5.5 11.721 5.5 11.5V3.16669C5.5 2.94567 5.5878 2.73371 5.74408 2.57743C5.90036 2.42115 6.11232 2.33335 6.33333 2.33335H8.83333V4.83335C8.83333 5.4964 9.09672 6.13228 9.56557 6.60112C10.0344 7.06996 10.6703 7.33335 11.3333 7.33335H13.8333V11.5Z" fill="#999999" stroke="#E5E7E9" stroke-width="0.5"/>
+            </svg>
+            </span>       
+                        </div>
+                    </div>
+                    <pre class="code-snippet" id="code-snippet-${id}">${escapedCodeContent}</pre>
+                </div>`;
+                chatContainer.insertAdjacentHTML("beforeend", formattedCode);
+            }
+            
+            // --- EXPLANATION ---
+            let explanationText = "";
+                            if (formattedResponse.includes("## Explanation")) {
+                        let explanationText = formattedResponse.split("## Explanation")[1] || "";
+                matched = true;
+                
+            
+                const explanationContainer = document.createElement("div");
+                explanationContainer.className = "explanation-message";
+            
+                const explanationP = document.createElement("p");
+                explanationP.className = "reply-text";
+            
+                explanationContainer.appendChild(explanationP);
+                chatContainer.appendChild(explanationContainer);
+            
+                  explanationText = explanationText.replace(/\\n/g, '\n');
+                    typeText(explanationP, marked.parse(explanationText), 5);
+            }
+            
+                        
+                  
+                        // DEFAULT
+                        if (!matched) {
+                        const defaultContainer = document.createElement("div");
+                        defaultContainer.className = "reply-message";
+                                    const explanationText=formattedResponse?.replace(/\\n/g, '\n');
+                        const defaultP = document.createElement("p");
+                        defaultP.className = "reply-text";
+                        defaultContainer.insertAdjacentHTML("afterbegin", replySvg);
+                        defaultContainer.appendChild(defaultP);
+                        chatContainer.appendChild(defaultContainer);
+                        
+                        typeText(defaultP, marked.parse(explanationText ), 5);
+                        }
+            
+                        // SOURCES
+                        if (response.sources && response.sources.length > 0) {
+                        setTimeout(() => {
+                            appendSourcesAndFeedback(
+                            chatContainer,
+                            response.sources,
+                            response,
+                            query
+                            );
+                            $(".response-footer").hide().fadeIn(500);
+                        }, 300);
+                        }
+                    },
+                    });
+                }
+    }
+    
+    
+    let typingTimeout;
+    
+    
+    function typeText(element, text, delay = 5, callback = null) {
+      let index = 0;
+        let markUp= ""
+      function type() {
+          if (index < text.length) {
+                          markUp+=text.charAt(index);
+              element.innerHTML = markUp;
+              index++;
+              setTimeout(type, delay);
+          } else if (callback) {
+              callback();
           }
-
-          if (isResponseAdded) return;
-          isResponseAdded = true;
-          updateButton(false);
-
-          let matched = false;
-
-          // SUMMARY
-          if (response.response.includes("SUMMARY:")) {
-            matched = true;
-            const summaryText = response.response
-              .split("SUMMARY:")[1]
-              .split("```")[0];
-            const summaryContainer = document.createElement("div");
-            summaryContainer.className = "reply-message";
-
-            const summaryP = document.createElement("p");
-            summaryP.className = "reply-text";
-            summaryContainer.insertAdjacentHTML("afterbegin", replySvg);
-            summaryContainer.appendChild(summaryP);
-            chatContainer.appendChild(summaryContainer);
-
-            typeText(summaryP, marked.parse(summaryText), 5);
-          }
-
-          // CODE
-          const codeMatch = response.response.match(/```(.*?)```/s);
-          if (codeMatch) {
-            matched = true;
-            const codeContent = codeMatch[1];
-            const escapedCodeContent = codeContent
-              .replace(/</g, "&lt;")
-              .replace(/>/g, "&gt;");
-
-            const languageMatch = codeContent.trim().match(/^(\w+)/);
-            const language = languageMatch ? languageMatch[1] : "Code";
-
-            const formattedCode = `
-                          <div class="reply-message" id="response-${id}">
-                              <p class="bot-text summary" id="summary-${id}"></p> 
-                          </div>
-                          <div class="bot-message" id="bot-message-${id}">
-                              <div class="code-header">
-                                  <div class="code-language">${language}</div>
-                                  <div class="code-header-right" data-code-id="${id}">
-                                     
-                           <span onclick="copyCode(this)" class="copy-svg"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M15.5 6.45002C15.4913 6.37347 15.4746 6.29805 15.45 6.22502V6.15002C15.4099 6.06434 15.3565 5.98557 15.2917 5.91669L10.2917 0.916687C10.2228 0.851867 10.144 0.798421 10.0583 0.758354C10.0335 0.75482 10.0082 0.75482 9.98333 0.758354C9.89868 0.709805 9.80519 0.678641 9.70833 0.666687H6.33333C5.67029 0.666687 5.03441 0.930079 4.56557 1.39892C4.09673 1.86776 3.83333 2.50365 3.83333 3.16669V4.00002H3C2.33696 4.00002 1.70107 4.26341 1.23223 4.73225C0.763392 5.20109 0.5 5.83698 0.5 6.50002V14.8334C0.5 15.4964 0.763392 16.1323 1.23223 16.6011C1.70107 17.07 2.33696 17.3334 3 17.3334H9.66667C10.3297 17.3334 10.9656 17.07 11.4344 16.6011C11.9033 16.1323 12.1667 15.4964 12.1667 14.8334V14H13C13.663 14 14.2989 13.7366 14.7678 13.2678C15.2366 12.7989 15.5 12.1631 15.5 11.5V6.50002C15.5 6.50002 15.5 6.50002 15.5 6.45002ZM10.5 3.50835L12.6583 5.66669H11.3333C11.1123 5.66669 10.9004 5.57889 10.7441 5.42261C10.5878 5.26633 10.5 5.05437 10.5 4.83335V3.50835ZM10.5 14.8334C10.5 15.0544 10.4122 15.2663 10.2559 15.4226C10.0996 15.5789 9.88768 15.6667 9.66667 15.6667H3C2.77899 15.6667 2.56702 15.5789 2.41074 15.4226C2.25446 15.2663 2.16667 15.0544 2.16667 14.8334V6.50002C2.16667 6.27901 2.25446 6.06705 2.41074 5.91077C2.56702 5.75448 2.77899 5.66669 3 5.66669H3.83333V11.5C3.83333 12.1631 4.09673 12.7989 4.56557 13.2678C5.03441 13.7366 5.67029 14 6.33333 14H10.5V14.8334ZM13.8333 11.5C13.8333 11.721 13.7455 11.933 13.5893 12.0893C13.433 12.2456 13.221 12.3334 13 12.3334H6.33333C6.11232 12.3334 5.90036 12.2456 5.74408 12.0893C5.5878 11.933 5.5 11.721 5.5 11.5V3.16669C5.5 2.94567 5.5878 2.73371 5.74408 2.57743C5.90036 2.42115 6.11232 2.33335 6.33333 2.33335H8.83333V4.83335C8.83333 5.4964 9.09672 6.13228 9.56557 6.60112C10.0344 7.06996 10.6703 7.33335 11.3333 7.33335H13.8333V11.5Z" fill="#999999" stroke="#E5E7E9" stroke-width="0.5"/>
-  </svg>
-  
-    </span>
-                                  </div>
-                              </div>
-                              <pre class="code-snippet" id="code-snippet-${id}">${escapedCodeContent}</pre>
-                          </div>`;
-            chatContainer.insertAdjacentHTML("beforeend", formattedCode);
-          }
-
-          // EXPLANATION
-          if (response.response.includes("EXPLANATION:")) {
-            matched = true;
-            const explanationText = formatText(
-              response.response.split("EXPLANATION:")[1].split("Sources:")[0]
-            );
-            const explanationContainer = document.createElement("div");
-            explanationContainer.className = "explanation-message";
-
-            const explanationP = document.createElement("p");
-            explanationP.className = "reply-text";
-
-            explanationContainer.appendChild(explanationP);
-            chatContainer.appendChild(explanationContainer);
-
-            typeText(explanationP, marked.parse(explanationText), 5);
-          }
-
-          // DEFAULT
-          if (!matched) {
-            const defaultContainer = document.createElement("div");
-            defaultContainer.className = "reply-message";
-
-            const defaultP = document.createElement("p");
-            defaultP.className = "reply-text";
-            defaultContainer.insertAdjacentHTML("afterbegin", replySvg);
-            defaultContainer.appendChild(defaultP);
-            chatContainer.appendChild(defaultContainer);
-
-            typeText(defaultP, marked.parse(response.response), 5);
-          }
-
-          // SOURCES
-          if (response.sources && response.sources.length > 0) {
-            setTimeout(() => {
-              appendSourcesAndFeedback(
-                chatContainer,
-                response.sources,
-                response,
-                query
-              );
-              $(".response-footer").hide().fadeIn(500);
-            }, 300);
-          }
-        },
+      }
+      type();
+    }
+    
+    
+    
+    
+    let messages = {
+      queries: [],
+    };
+    
+    function getChatMessages() {
+      const chatContainer = document.querySelector('.chat-container');
+    
+      if (!chatContainer) {
+        console.error('Chat container not found!');
+        return;
+      }
+    
+      const userMessages = chatContainer.querySelectorAll('.user-message');
+    
+      userMessages.forEach(msg => {
+        let text = msg.innerText.trim();
+    
+        if (!messages.queries.includes(text)) {
+          messages.queries.push(text);
+        }
       });
+      return messages;
     }
-  }
-
-  let typingTimeout;
-
-  function typeText(element, text, delay = 5, callback = null) {
-    let index = 0;
-    let markUp = "";
-    function type() {
-      if (index < text.length) {
-        markUp += text.charAt(index);
-        element.innerHTML = markUp;
-        index++;
-        setTimeout(type, delay);
-      } else if (callback) {
-        callback();
+    
+    function appendSourcesAndFeedback(
+      container,
+      sources = [],
+      geminiResponse,
+      userQuery
+    ) {
+      getChatMessages();
+    
+      if (typeof container === 'string') {
+        container = document.querySelector(container);
       }
-    }
-    type();
-  }
-
-  let messages = {
-    queries: [],
-  };
-
-  function getChatMessages() {
-    const chatContainer = document.querySelector(".chat-container");
-
-    if (!chatContainer) {
-      console.error("Chat container not found!");
-      return;
-    }
-
-    const userMessages = chatContainer.querySelectorAll(".user-message");
-
-    userMessages.forEach((msg) => {
-      let text = msg.innerText.trim();
-
-      if (!messages.queries.includes(text)) {
-        messages.queries.push(text);
+    
+      if (!container) {
+        console.error(
+          '❌ appendSourcesAndFeedback: Container not found!',
+          container
+        );
+        return;
       }
-    });
-    return messages;
-  }
-
-  function appendSourcesAndFeedback(
-    container,
-    sources = [],
-    geminiResponse,
-    userQuery
-  ) {
-    getChatMessages();
-
-    if (typeof container === "string") {
-      container = document.querySelector(container);
-    }
-
-    if (!container) {
-      console.error(
-        "❌ appendSourcesAndFeedback: Container not found!",
-        container
-      );
-      return;
-    }
-
-    let sourcesHTML = "";
-    const responseString = encodeURIComponent(JSON.stringify(geminiResponse));
-
-    if (sources.length > 0) {
-      sourcesHTML = `<div class="sources-section">
+    
+      let sourcesHTML = '';
+      const responseString = encodeURIComponent(JSON.stringify(geminiResponse));
+        
+      if (sources.length > 0) {
+        sourcesHTML = `<div class="sources-section">
           <h4>Top Sources</h4>
           <ol class="sources-list">`;
-
-      sources.forEach((source, index) => {
-        const formattedName = source.name
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ");
-
-        sourcesHTML += `<li><a href="${source.link}" target="_blank">${formattedName}</a></li>`;
-      });
-
-      sourcesHTML += `</ol></div>`;
-    }
-
-    const feedbackHTML = `
+    
+        sources.forEach((source, index) => {
+          const formattedName = source.name
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    
+          sourcesHTML += `<li><a href="${source.link}" target="_blank">${formattedName}</a></li>`;
+        });
+    
+        sourcesHTML += `</ol></div>`;
+      }
+    
+      const feedbackHTML = `
           <div class="feedback-section" data-response-id="${geminiResponse.response_id}">
               <span>Was this helpful?</span>
               <button class="feedback-btn"  data-query="${userQuery}" data-response="${responseString}" data-feedback="true">
@@ -511,152 +532,172 @@ $(document).ready(function () {
       <path d="M3.96209 11.594C3.91689 14.5622 6.3276 16.7846 10.0491 16.8147L11.134 16.8223C12.151 16.8298 12.9194 16.7545 13.3714 16.6415C14.0494 16.4682 14.6521 16.0463 14.6521 15.2779C14.6521 14.9841 14.5768 14.7581 14.4788 14.5848C14.4261 14.4944 14.4412 14.4266 14.5165 14.389C15.0288 14.1629 15.4205 13.6883 15.4205 13.0555C15.4205 12.709 15.315 12.385 15.1493 12.1515C15.074 12.0536 15.089 11.9632 15.2096 11.8878C15.5712 11.6618 15.8198 11.2023 15.8198 10.6749C15.8198 10.2983 15.6993 9.90653 15.4958 9.70313C15.3904 9.60519 15.4054 9.53739 15.5185 9.43945C15.7746 9.21345 15.9177 8.83678 15.9177 8.3923C15.9177 7.57868 15.2924 6.9308 14.4638 6.9308H11.6613C10.9833 6.9308 10.5388 6.58426 10.5388 6.04185C10.5388 4.98717 11.8798 3.02846 11.8798 1.60463C11.8798 0.836218 11.3826 0.361609 10.7121 0.361609C10.132 0.361609 9.82314 0.745817 9.49167 1.3937C8.30891 3.69141 6.73441 5.55218 5.52905 7.15681C4.4819 8.54297 3.99222 9.73326 3.96209 11.594ZM0.0371466 11.6618C0.0371466 14.0725 1.53631 16.0614 3.54022 16.0614H4.88871C3.48748 14.9916 2.817 13.3945 2.84713 11.579C2.87727 9.62026 3.57788 8.20396 4.31616 7.22461H3.23888C1.42331 7.22461 0.0371466 9.16825 0.0371466 11.6618Z" 
       stroke="#A4B0AD" stroke-width="1" fill="none"/>
     </svg>
-  </span>
-  </button>
+    </span>
+    </button>
               <button class="feedback-btn" data-query="${userQuery}" data-response="${responseString}" data-feedback="false"><span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M20.1738 9.36831C20.1738 6.70899 18.4713 4.53181 16.2866 4.53181H13.808C12.791 4.012 11.5857 3.71066 10.2598 3.71066H9.20508C8.22573 3.71066 7.38951 3.77093 6.8471 3.90653C5.73968 4.17774 5.03906 4.96875 5.03906 5.95564C5.03906 6.12891 5.0692 6.29465 5.1144 6.45285C4.59459 6.85966 4.30078 7.44727 4.30078 8.09515C4.30078 8.39649 4.36105 8.69029 4.46652 8.9389C4.11998 9.30804 3.91657 9.84292 3.91657 10.3929C3.91657 10.7545 4.00698 11.1236 4.15765 11.4099C3.94671 11.7263 3.82617 12.1557 3.82617 12.6303C3.82617 13.8357 4.74526 14.7623 5.93555 14.7623H8.738C8.89621 14.7623 9.00167 14.8376 8.99414 14.9808C8.95647 15.7567 7.73605 17.625 7.73605 19.1543C7.73605 20.2768 8.52706 21.0979 9.61942 21.0979C10.4104 21.0979 10.9528 20.6836 11.4727 19.6967C12.4143 17.8887 13.5444 16.3066 15.2243 14.2349H16.5728C18.6219 14.2349 20.1738 12.0728 20.1738 9.36831ZM15.4805 9.42858C15.4805 11.0257 15.1264 12.0427 14.1018 13.4138C12.9643 14.9356 11.3823 16.7737 10.2447 19.0488C10.0036 19.5234 9.83789 19.6364 9.60435 19.6364C9.31808 19.6364 9.12974 19.433 9.12974 19.0714C9.12974 17.9565 10.4029 16.0882 10.4029 14.8602C10.4029 13.9562 9.67215 13.3686 8.67773 13.3686H5.97321C5.53627 13.3686 5.21233 13.0446 5.21233 12.6077C5.21233 12.2988 5.3178 12.0954 5.57394 11.8393C5.76981 11.6359 5.79994 11.3496 5.62667 11.1537C5.4082 10.8449 5.3178 10.649 5.3178 10.3929C5.3178 10.084 5.46094 9.82032 5.76228 9.59431C6.01842 9.41351 6.10882 9.10464 5.95815 8.8033C5.79994 8.50196 5.71708 8.34375 5.71708 8.11022C5.71708 7.74861 5.95061 7.46987 6.41769 7.22127C6.66629 7.08566 6.7341 6.82199 6.62863 6.58092C6.47042 6.19671 6.44782 6.12891 6.45536 5.96317C6.45536 5.63923 6.6889 5.3831 7.19364 5.25503C7.63811 5.14202 8.34626 5.09682 9.28041 5.10436L10.2522 5.11189C13.3711 5.14202 15.4805 6.88979 15.4805 9.42858ZM18.8103 9.36831C18.8103 11.2818 17.8234 12.8111 16.6934 12.8563C16.4975 12.8638 16.3016 12.8638 16.1057 12.8638C16.6406 11.8167 16.8742 10.7319 16.8742 9.42858C16.8742 8.04241 16.392 6.82199 15.5181 5.86524C15.7969 5.86524 16.0831 5.87277 16.3694 5.87277C17.6878 5.92551 18.8103 7.46987 18.8103 9.36831Z" fill="#A4B0AD"/>
-  </svg>
-  </span></button>
+    <path d="M20.1738 9.36831C20.1738 6.70899 18.4713 4.53181 16.2866 4.53181H13.808C12.791 4.012 11.5857 3.71066 10.2598 3.71066H9.20508C8.22573 3.71066 7.38951 3.77093 6.8471 3.90653C5.73968 4.17774 5.03906 4.96875 5.03906 5.95564C5.03906 6.12891 5.0692 6.29465 5.1144 6.45285C4.59459 6.85966 4.30078 7.44727 4.30078 8.09515C4.30078 8.39649 4.36105 8.69029 4.46652 8.9389C4.11998 9.30804 3.91657 9.84292 3.91657 10.3929C3.91657 10.7545 4.00698 11.1236 4.15765 11.4099C3.94671 11.7263 3.82617 12.1557 3.82617 12.6303C3.82617 13.8357 4.74526 14.7623 5.93555 14.7623H8.738C8.89621 14.7623 9.00167 14.8376 8.99414 14.9808C8.95647 15.7567 7.73605 17.625 7.73605 19.1543C7.73605 20.2768 8.52706 21.0979 9.61942 21.0979C10.4104 21.0979 10.9528 20.6836 11.4727 19.6967C12.4143 17.8887 13.5444 16.3066 15.2243 14.2349H16.5728C18.6219 14.2349 20.1738 12.0728 20.1738 9.36831ZM15.4805 9.42858C15.4805 11.0257 15.1264 12.0427 14.1018 13.4138C12.9643 14.9356 11.3823 16.7737 10.2447 19.0488C10.0036 19.5234 9.83789 19.6364 9.60435 19.6364C9.31808 19.6364 9.12974 19.433 9.12974 19.0714C9.12974 17.9565 10.4029 16.0882 10.4029 14.8602C10.4029 13.9562 9.67215 13.3686 8.67773 13.3686H5.97321C5.53627 13.3686 5.21233 13.0446 5.21233 12.6077C5.21233 12.2988 5.3178 12.0954 5.57394 11.8393C5.76981 11.6359 5.79994 11.3496 5.62667 11.1537C5.4082 10.8449 5.3178 10.649 5.3178 10.3929C5.3178 10.084 5.46094 9.82032 5.76228 9.59431C6.01842 9.41351 6.10882 9.10464 5.95815 8.8033C5.79994 8.50196 5.71708 8.34375 5.71708 8.11022C5.71708 7.74861 5.95061 7.46987 6.41769 7.22127C6.66629 7.08566 6.7341 6.82199 6.62863 6.58092C6.47042 6.19671 6.44782 6.12891 6.45536 5.96317C6.45536 5.63923 6.6889 5.3831 7.19364 5.25503C7.63811 5.14202 8.34626 5.09682 9.28041 5.10436L10.2522 5.11189C13.3711 5.14202 15.4805 6.88979 15.4805 9.42858ZM18.8103 9.36831C18.8103 11.2818 17.8234 12.8111 16.6934 12.8563C16.4975 12.8638 16.3016 12.8638 16.1057 12.8638C16.6406 11.8167 16.8742 10.7319 16.8742 9.42858C16.8742 8.04241 16.392 6.82199 15.5181 5.86524C15.7969 5.86524 16.0831 5.87277 16.3694 5.87277C17.6878 5.92551 18.8103 7.46987 18.8103 9.36831Z" fill="#A4B0AD"/>
+    </svg>
+    </span></button>
           </div>
       `;
-
-    const finalHTML = `<div class="response-footer">${sourcesHTML} ${feedbackHTML}</div>`;
-    setTimeout(scrollToBottom, 100);
-    container.insertAdjacentHTML("beforeend", finalHTML);
-  }
-
-  document.addEventListener("click", function (event) {
-    const copyButton = event.target.closest(".copy-svg"); // Check if clicked element is copy button
-    const button = event.target.closest(".feedback-btn");
-    const retryButton = event.target.closest(".retry-btn");
-
-    if (!copyButton && !button && !retryButton) return;
-
-    if (retryButton) {
-      sendQuery(retryButton.dataset?.query);
+    
+      const finalHTML = `<div class="response-footer">${sourcesHTML} ${feedbackHTML}</div>`;
+      setTimeout(scrollToBottom, 100);
+      container.insertAdjacentHTML('beforeend', finalHTML);
     }
-
-    if (copyButton) {
-      const codeId = copyButton.closest(".code-header-right").dataset.codeId;
-      const codeBlock = document.getElementById(`code-snippet-${codeId}`);
-
+    
+    document.addEventListener('click', function (event) {
+      const copyButton = event.target.closest('.copy-svg'); // Check if clicked element is copy button
+      const button = event.target.closest('.feedback-btn');
+      const retryButton = event.target.closest('.retry-btn');
+    
+      if (!copyButton && !button && !retryButton) return;
+    
+      if (retryButton) {
+        sendQuery(retryButton.dataset?.query);
+      }
+    
+      if (copyButton) {
+        const codeId = copyButton.closest('.code-header-right').dataset.codeId;
+        const codeBlock = document.getElementById(`code-snippet-${codeId}`);
+    
+    
+        if (codeBlock) {
+          navigator.clipboard
+            .writeText(codeBlock.innerText.trim())
+            .then(() => {
+              copyButton.innerHTML = 'Copied';
+              setTimeout(() => {
+                copyButton.innerHTML = `<span class="copy-svg"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.5 6.45002C15.4913 6.37347 15.4746 6.29805 15.45 6.22502V6.15002C15.4099 6.06434 15.3565 5.98557 15.2917 5.91669L10.2917 0.916687C10.2228 0.851867 10.144 0.798421 10.0583 0.758354C10.0335 0.75482 10.0082 0.75482 9.98333 0.758354C9.89868 0.709805 9.80519 0.678641 9.70833 0.666687H6.33333C5.67029 0.666687 5.03441 0.930079 4.56557 1.39892C4.09673 1.86776 3.83333 2.50365 3.83333 3.16669V4.00002H3C2.33696 4.00002 1.70107 4.26341 1.23223 4.73225C0.763392 5.20109 0.5 5.83698 0.5 6.50002V14.8334C0.5 15.4964 0.763392 16.1323 1.23223 16.6011C1.70107 17.07 2.33696 17.3334 3 17.3334H9.66667C10.3297 17.3334 10.9656 17.07 11.4344 16.6011C11.9033 16.1323 12.1667 15.4964 12.1667 14.8334V14H13C13.663 14 14.2989 13.7366 14.7678 13.2678C15.2366 12.7989 15.5 12.1631 15.5 11.5V6.50002C15.5 6.50002 15.5 6.50002 15.5 6.45002ZM10.5 3.50835L12.6583 5.66669H11.3333C11.1123 5.66669 10.9004 5.57889 10.7441 5.42261C10.5878 5.26633 10.5 5.05437 10.5 4.83335V3.50835ZM10.5 14.8334C10.5 15.0544 10.4122 15.2663 10.2559 15.4226C10.0996 15.5789 9.88768 15.6667 9.66667 15.6667H3C2.77899 15.6667 2.56702 15.5789 2.41074 15.4226C2.25446 15.2663 2.16667 15.0544 2.16667 14.8334V6.50002C2.16667 6.27901 2.25446 6.06705 2.41074 5.91077C2.56702 5.75448 2.77899 5.66669 3 5.66669H3.83333V11.5C3.83333 12.1631 4.09673 12.7989 4.56557 13.2678C5.03441 13.7366 5.67029 14 6.33333 14H10.5V14.8334ZM13.8333 11.5C13.8333 11.721 13.7455 11.933 13.5893 12.0893C13.433 12.2456 13.221 12.3334 13 12.3334H6.33333C6.11232 12.3334 5.90036 12.2456 5.74408 12.0893C5.5878 11.933 5.5 11.721 5.5 11.5V3.16669C5.5 2.94567 5.5878 2.73371 5.74408 2.57743C5.90036 2.42115 6.11232 2.33335 6.33333 2.33335H8.83333V4.83335C8.83333 5.4964 9.09672 6.13228 9.56557 6.60112C10.0344 7.06996 10.6703 7.33335 11.3333 7.33335H13.8333V11.5Z" fill="#999999" stroke="#E5E7E9" stroke-width="0.5"/>
+    </svg></span>`;
+              }, 1000);
+            })
+            .catch(err => console.error('❌ Failed to copy:', err));
+        }
+      }
+    
+      if (!button) return;
+    
+      const isPositive = button.getAttribute('data-feedback') === 'true';
+      const userQuery = button.getAttribute('data-query');
+      const geminiResponseString = decodeURIComponent(
+        button.getAttribute('data-response')
+      );
+      const geminiResponse = JSON.parse(geminiResponseString);
+    
+      handleFeedback(isPositive, userQuery, geminiResponse);
+    });
+    
+    // Function to handle feedback
+    function handleFeedback(isPositive, userQuery, geminiResponse) {
+    console.log(isPositive,"kks")
+      const query = $('.chat-input textarea').val().trim();
+      const payload = {
+        preQuestions: messages.queries,
+        currentFeedback: {
+          response_id: geminiResponse.response_id,
+          session_id: geminiResponse.session_id,
+          user_query: userQuery,
+          gemini_response:
+            geminiResponse?.response?.response || geminiResponse?.response,
+          feedback: isPositive ? 1 : 0,
+        },
+      };
+    
+      $.ajax({
+        url: `${BaseUrl}/api/feedback`,
+        method: 'POST',
+        data: JSON.stringify(payload),
+        contentType: 'application/json',
+        dataType: 'json',
+        beforeSend: function (jqXHR, settings) {
+          console.log('Final API Request:', settings.url, settings.data);
+        },
+        success: function (response) {
+          $('#results').html('<p>Feedback submitted successfully</p>');
+          updateFeedbackButtonUI(isPositive, geminiResponse.response_id);
+        },
+        error: function (error) {
+          $('#results').html('<p>Error submitting feedback</p>');
+        },
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error('AJAX Failed:', textStatus, errorThrown);
+      });
+    }
+    function updateFeedbackButtonUI(isPositive, responseId) {
+     
+    
+      const feedbackSection = $(
+        `.feedback-section[data-response-id="${responseId}"]`
+      );
+      const selectedBtn = isPositive
+        ? feedbackSection.find('.feedback-btn[data-feedback="true"]')
+        : feedbackSection.find('.feedback-btn[data-feedback="false"]');
+    
+      selectedBtn.find('svg path').css('fill', isPositive ? '#27A5BE' : '');
+     if(isPositive){
+    const targetColor = isPositive ? '#27A5BE' : '#AC1616';
+    selectedBtn.find('svg path').each(function () {
+    const currentFill = $(this).css('fill');
+    if (currentFill.toLowerCase() !== targetColor.toLowerCase()) {
+      $(this).css('fill', targetColor);
+    }
+    });
+    selectedBtn.find('svg path').each(function () {
+    console.log('Before:', $(this).attr('fill'));
+    });
+     }
+     else{
+    selectedBtn.html(`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.95 6.27045C19.95 3.35884 18.0751 0.975085 15.5882 0.975085H14.0394C15.737 2.28427 16.5484 4.20232 16.5111 6.37194C16.5111 6.37196 16.5111 6.37198 16.5111 6.372L16.4611 6.37114C16.4237 8.7178 15.5652 10.4237 14.6498 11.6116L19.95 6.27045ZM19.95 6.27045C19.95 9.2871 18.214 11.6116 15.9677 11.6116H14.7128L19.95 6.27045ZM6.02431 0.0506281L6.02433 0.0506282L7.3905 0.0597808C9.72469 0.0780145 11.6434 0.759431 12.9706 1.88087C14.2971 3.00179 15.0352 4.5642 15.0069 6.35204C14.9692 8.60046 14.3572 10.0363 13.0441 11.7131L13.044 11.7132C12.7556 12.0838 12.45 12.4658 12.134 12.8609C10.7898 14.5417 9.25708 16.4581 8.04887 18.7225L8.04881 18.7226C7.8406 19.1152 7.64237 19.422 7.40858 19.6309C7.17685 19.838 6.90877 19.95 6.55598 19.95C6.14534 19.95 5.79092 19.81 5.5393 19.5595C5.28782 19.3092 5.13539 18.945 5.13539 18.4897C5.13539 17.6371 5.55242 16.6196 5.97565 15.6459C6.00719 15.5734 6.03876 15.501 6.07017 15.4291C6.24862 15.0203 6.42207 14.623 6.55724 14.2556C6.71594 13.8242 6.82419 13.4283 6.82419 13.0986C6.82419 12.7533 6.67684 12.4687 6.41784 12.2717C6.16014 12.0756 5.79509 11.9686 5.36053 11.9686H1.83112C0.814071 11.9686 0.05 11.2028 0.05 10.2429C0.05 9.71318 0.226743 9.27139 0.535084 9.00882C0.606391 8.94918 0.661493 8.88775 0.669913 8.81627C0.678821 8.74064 0.634139 8.6754 0.565381 8.61364C0.322957 8.37921 0.17334 7.91916 0.17334 7.4695C0.17334 6.84436 0.478858 6.30326 0.917658 6.03868C0.9991 5.98958 1.05505 5.92963 1.07112 5.85675C1.08739 5.783 1.05968 5.71091 1.00746 5.64513C0.805749 5.37054 0.676186 4.98781 0.676186 4.57714C0.676186 3.83253 1.15338 3.27159 1.78429 3.00306L1.78431 3.00312L1.78643 3.00209C1.84341 2.97461 1.88552 2.9318 1.89787 2.87225C1.90975 2.81494 1.89149 2.75377 1.85512 2.69352C1.73605 2.49019 1.64393 2.22435 1.64393 1.877C1.64393 0.978914 2.37219 0.477606 3.21867 0.268881C3.78214 0.133001 4.74514 0.0414869 6.02431 0.0506281Z" fill="#F11414" stroke="#A4B0AD" stroke-width="0.1"/>
+    </svg>
+    
+    `)
+     }
+    
+      setTimeout(() => {
+        feedbackSection.css({
+          transition: 'opacity 0.5s ease, transform 0.5s ease',
+          opacity: '0',
+          transform: 'translateY(-10px)',
+        });
+    
+        setTimeout(() => {
+          feedbackSection.hide();
+        }, 300); 
+      }, 500);
+    }
+    
+    $(document).on('click', '.example-question', function () {
+      const questionText = $(this).find('span').text();
+      $('.chat-input textarea').val(questionText);
+      sendQuery();
+      isFirstMessage = false;
+      updatePlaceholder();
+    });
+    
+    function copyCode(buttonElement) {
+      const codeId = buttonElement.closest('.code-header-right').dataset.codeId;
+      const codeBlock = document.getElementById(`code-${codeId}`);
+    
       if (codeBlock) {
         navigator.clipboard
           .writeText(codeBlock.innerText.trim())
           .then(() => {
-            copyButton.innerHTML = "Copied";
-            setTimeout(() => {
-              copyButton.innerHTML = `<span class="copy-svg"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M15.5 6.45002C15.4913 6.37347 15.4746 6.29805 15.45 6.22502V6.15002C15.4099 6.06434 15.3565 5.98557 15.2917 5.91669L10.2917 0.916687C10.2228 0.851867 10.144 0.798421 10.0583 0.758354C10.0335 0.75482 10.0082 0.75482 9.98333 0.758354C9.89868 0.709805 9.80519 0.678641 9.70833 0.666687H6.33333C5.67029 0.666687 5.03441 0.930079 4.56557 1.39892C4.09673 1.86776 3.83333 2.50365 3.83333 3.16669V4.00002H3C2.33696 4.00002 1.70107 4.26341 1.23223 4.73225C0.763392 5.20109 0.5 5.83698 0.5 6.50002V14.8334C0.5 15.4964 0.763392 16.1323 1.23223 16.6011C1.70107 17.07 2.33696 17.3334 3 17.3334H9.66667C10.3297 17.3334 10.9656 17.07 11.4344 16.6011C11.9033 16.1323 12.1667 15.4964 12.1667 14.8334V14H13C13.663 14 14.2989 13.7366 14.7678 13.2678C15.2366 12.7989 15.5 12.1631 15.5 11.5V6.50002C15.5 6.50002 15.5 6.50002 15.5 6.45002ZM10.5 3.50835L12.6583 5.66669H11.3333C11.1123 5.66669 10.9004 5.57889 10.7441 5.42261C10.5878 5.26633 10.5 5.05437 10.5 4.83335V3.50835ZM10.5 14.8334C10.5 15.0544 10.4122 15.2663 10.2559 15.4226C10.0996 15.5789 9.88768 15.6667 9.66667 15.6667H3C2.77899 15.6667 2.56702 15.5789 2.41074 15.4226C2.25446 15.2663 2.16667 15.0544 2.16667 14.8334V6.50002C2.16667 6.27901 2.25446 6.06705 2.41074 5.91077C2.56702 5.75448 2.77899 5.66669 3 5.66669H3.83333V11.5C3.83333 12.1631 4.09673 12.7989 4.56557 13.2678C5.03441 13.7366 5.67029 14 6.33333 14H10.5V14.8334ZM13.8333 11.5C13.8333 11.721 13.7455 11.933 13.5893 12.0893C13.433 12.2456 13.221 12.3334 13 12.3334H6.33333C6.11232 12.3334 5.90036 12.2456 5.74408 12.0893C5.5878 11.933 5.5 11.721 5.5 11.5V3.16669C5.5 2.94567 5.5878 2.73371 5.74408 2.57743C5.90036 2.42115 6.11232 2.33335 6.33333 2.33335H8.83333V4.83335C8.83333 5.4964 9.09672 6.13228 9.56557 6.60112C10.0344 7.06996 10.6703 7.33335 11.3333 7.33335H13.8333V11.5Z" fill="#999999" stroke="#E5E7E9" stroke-width="0.5"/>
-  </svg></span>`;
-            }, 1000);
+            alert('Code copied to clipboard!');
           })
-          .catch((err) => console.error("❌ Failed to copy:", err));
+          .catch(err => console.error('Failed to copy:', err));
       }
     }
-
-    if (!button) return;
-
-    const isPositive = button.getAttribute("data-feedback") === "true";
-    const userQuery = button.getAttribute("data-query");
-    const geminiResponseString = decodeURIComponent(
-      button.getAttribute("data-response")
-    );
-    const geminiResponse = JSON.parse(geminiResponseString);
-
-    handleFeedback(isPositive, userQuery, geminiResponse);
-  });
-
-  // Function to handle feedback
-  function handleFeedback(isPositive, userQuery, geminiResponse) {
-    console.log(isPositive, "kks");
-    const query = $(".chat-input textarea").val().trim();
-    const payload = {
-      preQuestions: messages.queries,
-      currentFeedback: {
-        response_id: geminiResponse.response_id,
-        session_id: geminiResponse.session_id,
-        user_query: userQuery,
-        gemini_response:
-          geminiResponse?.response?.response || geminiResponse?.response,
-        feedback: isPositive ? 1 : 0,
-      },
-    };
-
-    $.ajax({
-      url: `${BaseUrl}/api/feedback`,
-      method: "POST",
-      data: JSON.stringify(payload),
-      contentType: "application/json",
-      dataType: "json",
-      beforeSend: function (jqXHR, settings) {
-        console.log("Final API Request:", settings.url, settings.data);
-      },
-      success: function (response) {
-        $("#results").html("<p>Feedback submitted successfully</p>");
-        updateFeedbackButtonUI(isPositive, geminiResponse.response_id);
-      },
-      error: function (error) {
-        $("#results").html("<p>Error submitting feedback</p>");
-      },
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-      console.error("AJAX Failed:", textStatus, errorThrown);
+    
+    $('.chat-input textarea').on('keypress', function (event) {
+      if (event.which === 13) {
+        sendQuery();
+        $('.chat-input textarea').val('');
+        updateButton(false);
+        isFirstMessage = false;
+        updatePlaceholder();
+      }
     });
-  }
-  function updateFeedbackButtonUI(isPositive, responseId) {
-    $(".feedback-btn svg path").css("fill", "#A4B0AD");
-
-    const feedbackSection = $(
-      `.feedback-section[data-response-id="${responseId}"]`
-    );
-    const selectedBtn = isPositive
-      ? feedbackSection.find('.feedback-btn[data-feedback="true"]')
-      : feedbackSection.find('.feedback-btn[data-feedback="false"]');
-
-    selectedBtn.find("svg path").css("fill", isPositive ? "#27A5BE" : "");
-
-    setTimeout(() => {
-      feedbackSection.css({
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-        opacity: "0",
-        transform: "translateY(-10px)",
-      });
-
-      setTimeout(() => {
-        feedbackSection.hide();
-      }, 300); // Match the transition duration
-    }, 500);
-  }
-
-  $(document).on("click", ".example-question", function () {
-    const questionText = $(this).find("span").text();
-    $(".chat-input textarea").val(questionText);
-    sendQuery();
-    isFirstMessage = false;
-    updatePlaceholder();
-  });
-
-  function copyCode(buttonElement) {
-    const codeId = buttonElement.closest(".code-header-right").dataset.codeId;
-    const codeBlock = document.getElementById(`code-${codeId}`);
-
-    if (codeBlock) {
-      navigator.clipboard
-        .writeText(codeBlock.innerText.trim())
-        .then(() => {
-          alert("Code copied to clipboard!");
-        })
-        .catch((err) => console.error("Failed to copy:", err));
-    }
-  }
-
-  $(".chat-input textarea").on("keypress", function (event) {
-    if (event.which === 13) {
-      sendQuery();
-      $(".chat-input textarea").val("");
-      updateButton(false);
-      isFirstMessage = false;
-      updatePlaceholder();
-    }
-  });
-});
+    });
